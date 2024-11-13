@@ -15,6 +15,8 @@ describe('CRUD movie', () => {
   })
 
   it('should', () => {
+    // Cypress.getDataSession
+    // Cypress.getDataSession(sessionName).should('be.a', 'string')
     cy.maybeGetToken(sessionName).should('be.a', 'string')
   })
 })
