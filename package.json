@@ -19,7 +19,9 @@
     "test:watch": "jest --watch --config jest.config.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.jest.json",
     "lint": "eslint --ext=.js,.ts,.tsx --fix",
-    "generate:openapi": "tsx src/api-docs/openapi-writer.ts"
+    "generate:openapi": "tsx src/api-docs/openapi-writer.ts",
+    "optic:lint": "optic lint src/api-docs/openapi.yaml",
+    "optic:diff": "optic diff src/api-docs/openapi.yaml --check --web --base main"
   },
   "devDependencies": {
     "@bahmutov/cy-api": "2.2.6",
@@ -63,6 +65,7 @@
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^7.2.0",
     "@prisma/client": "^5.22.0",
+    "@useoptic/optic": "^1.0.4",
     "cors": "^2.8.5",
     "express": "^4.21.1",
     "openapi3-ts": "^4.4.0",
