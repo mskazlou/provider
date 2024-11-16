@@ -18,7 +18,8 @@
     "test": "jest --detectOpenHandles --verbose --silent --config jest.config.ts",
     "test:watch": "jest --watch --config jest.config.ts",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.jest.json",
-    "lint": "eslint --ext=.js,.ts,.tsx --fix"
+    "lint": "eslint --ext=.js,.ts,.tsx --fix",
+    "generate:openapi": "tsx src/api-docs/openapi-writer.ts"
   },
   "devDependencies": {
     "@bahmutov/cy-api": "2.2.6",
@@ -64,6 +65,7 @@
     "@prisma/client": "^5.22.0",
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "openapi3-ts": "^4.4.0",
     "prisma": "^5.22.0",
     "zod": "^3.23.8"
   }

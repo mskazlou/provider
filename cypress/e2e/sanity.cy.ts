@@ -9,7 +9,7 @@ describe('CRUD movie', () => {
       url: '/'
     })
       .its('body.message')
-      .should('eq', 'Server is running!')
+      .should('eq', 'Server is running')
 
     cy.maybeGetToken(sessionName)
   })
