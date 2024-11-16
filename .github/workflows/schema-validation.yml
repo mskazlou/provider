@@ -32,7 +32,7 @@ jobs:
       - name: Check if OpenAPI docs have changed
         id: check_changes
         run: |
-          if git diff --quiet src/api-docs/openapi.yaml src/api-docs/openapi.json; then
+          if git diff --quiet src/api-docs/openapi.yml src/api-docs/openapi.json; then
             echo "changes=false" >> $GITHUB_ENV
           else
             echo "changes=true" >> $GITHUB_ENV
@@ -47,13 +47,16 @@ jobs:
           message: 'Update OpenAPI spec'
           add: 'src/api-docs/openapi.yml src/api-docs/openapi.json'
           push: 'true'
-          github_token: '${{ github.PAT_TOKEN }}'
+          github_token: '${{ github.GITHUB_TOKEN }}'
+#          github_token: '${{ github.PAT_TOKEN }}'
 
       - name: Create empty commit to re-run checks
         if: env.changes == 'true'
         run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
           git commit --allow-empty -m "Re-run checks after OpenAPI update"
-          git push
+          git push origin HEAD:${{ github.head_ref }}
 
       - name: Fetch main branch for Optic
         run: git fetch --depth=1 origin main:main

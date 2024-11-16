@@ -20,8 +20,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.jest.json",
     "lint": "eslint --ext=.js,.ts,.tsx --fix",
     "generate:openapi": "tsx src/api-docs/openapi-writer.ts",
-    "optic:lint": "optic lint src/api-docs/openapi.yaml",
-    "optic:diff": "optic diff src/api-docs/openapi.yaml --check --web --base main"
+    "optic:lint": "optic lint src/api-docs/openapi.yml",
+    "optic:diff": "optic diff src/api-docs/openapi.yml --check --web --base main"
   },
   "devDependencies": {
     "@bahmutov/cy-api": "2.2.6",
