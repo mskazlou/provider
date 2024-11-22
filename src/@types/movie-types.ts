@@ -24,5 +24,5 @@ export type MovieNotFoundResponse = z.infer<typeof MovieNotFoundResponseSchema>
 
 export type DeleteMovieResponse = z.infer<typeof DeleteMovieResponseSchema>
 
-export type UpdateMovieSchema = z.infer<typeof UpdateMovieSchema>
+export type UpdateMovieRequest = z.infer<typeof UpdateMovieSchema>
 export type UpdateMovieResponse = z.infer<typeof UpdateMovieResponseSchema>
