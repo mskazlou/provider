@@ -1,5 +1,6 @@
 import cors from 'cors'
 import express, { json } from 'express'
+import { moviesRoute } from './routes'
 
 const server = express()
 
@@ -14,6 +15,8 @@ server.use(json())
 server.get('/', (_, res) => {
   return res.status(200).json({ message: 'Server is running.' })
 })
+
+server.use('/movies', moviesRoute)
 
 server.use('/auth/fake-token', (_, res) => {
   const token = `Bearer ${new Date().toISOString()}`

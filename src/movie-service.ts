@@ -9,8 +9,8 @@ import type {
   UpdateMovieRequest,
   UpdateMovieResponse
 } from './@types'
-import type { ZodSchema } from 'zod'
 import { CreateMovieSchema, UpdateMovieSchema } from './@types/schema'
+import { validateSchema } from './validate-schema'
 
 // In the context of the MovieService, what you care about is the contract/interface
 // (i.e., the methods defined by the MovieRepository interface).
@@ -89,25 +89,5 @@ export class MovieService {
     if (!validationResult.success)
       return { status: 400, error: validationResult.error }
     return this.movieRepository.updateMovie(data, id)
-  }
-}
-
-const validateSchema = <T>(
-  schema: ZodSchema<T>,
-  data: unknown
-):
-  | { success: true; data: T }
-  | {
-      success: false
-      error: string
-    } => {
-  const result = schema.safeParse(data)
-  if (result.success) {
-    return { success: true, data: result.data }
-  } else {
-    const errorMessage = result.error.errors
-      .map((err) => err.message)
-      .join(', ')
-    return { success: false, error: errorMessage }
   }
 }
