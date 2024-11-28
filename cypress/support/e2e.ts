@@ -5,17 +5,37 @@ import '@bahmutov/cy-api'
 
 import type { Movie } from '@prisma/client'
 import Chainable = Cypress.Chainable
+import type {
+  CreateMovieResponse,
+  DeleteMovieResponse,
+  GetMovieResponse,
+  UpdateMovieResponse
+} from '../../src/@types'
 
 const commonHeaders = (token: string) => ({
   Authorization: token
 })
 
+interface Response<T> {
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  allRequestResponses: any[]
+  body: T
+  duration: number
+  headers: { [key: string]: string | string[] }
+  isOkStatusCode: boolean
+  redirects?: string[]
+  redirectedToUrl?: string
+  requestHeaders: { [key: string]: string }
+  status: number
+  statusText: string
+}
+
 Cypress.Commands.add(
   'getAllMovies',
   (
     token: string,
-    allowedToFail = false // @ts-expect-error expected
-  ): Chainable<Response<unknown> & Messages> => {
+    allowedToFail = false
+  ): Chainable<Response<GetMovieResponse> & Messages> => {
     cy.log('**getAllMovies**')
     return cy.api({
       method: 'GET',
@@ -33,8 +53,7 @@ Cypress.Commands.add(
     token: string,
     body: Omit<Movie, 'id'>,
     allowedToFail = false
-    // @ts-expect-error expected
-  ): Chainable<Response<unknown> & Messages> => {
+  ): Chainable<Response<CreateMovieResponse> & Messages> => {
     cy.log('**addMovie**')
 
     return cy.api({
@@ -54,8 +73,7 @@ Cypress.Commands.add(
     token: string,
     id: number,
     allowedToFail = false
-    // @ts-expect-error expected
-  ): Chainable<Response<unknown> & Messages> => {
+  ): Chainable<Response<GetMovieResponse> & Messages> => {
     cy.log(`**getMovieById: ${{ id }}**`)
 
     return cy.api({
@@ -74,8 +92,7 @@ Cypress.Commands.add(
     token: string,
     name: string,
     allowedToFail = false
-    // @ts-expect-error expected
-  ): Chainable<Response<unknown> & Messages> => {
+  ): Chainable<Response<GetMovieResponse> & Messages> => {
     cy.log(`**getMovieByName: ${{ name }}**`)
     return cy.api({
       method: 'GET',
@@ -95,8 +112,7 @@ Cypress.Commands.add(
     id: number,
     body: Partial<Movie>,
     allowedToFail = false
-    // @ts-expect-error expected
-  ): Chainable<Response<unknown> & Messages> => {
+  ): Chainable<Response<UpdateMovieResponse> & Messages> => {
     cy.log(`**updateMovie by ${{ id }}**`)
 
     return cy.api({
@@ -116,8 +132,7 @@ Cypress.Commands.add(
     token: string,
     id: number,
     allowedToFail = false
-    // @ts-expect-error expected
-  ): Chainable<Response<unknown> & Messages> => {
+  ): Chainable<Response<DeleteMovieResponse> & Messages> => {
     cy.log(`**deleteMovie by ${{ id }}**`)
 
     return cy.api({

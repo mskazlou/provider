@@ -7,7 +7,7 @@ import type {
 import type { Movie } from '@prisma/client'
 import type { OpenAPIV3_1 } from 'openapi-types'
 
-export {}
+// export {}
 
 declare global {
   namespace Cypress {
@@ -20,7 +20,7 @@ declare global {
       getAllMovies(
         token: string,
         allowedToFail?: boolean
-      ): Chainable<GetMovieResponse>
+      ): Chainable<Response<GetMovieResponse> & Messages>
 
       /** Gets a movie by id
        * ```js
@@ -31,7 +31,7 @@ declare global {
         token: string,
         id: number,
         allowedToFail?: boolean
-      ): Chainable<GetMovieResponse>
+      ): Chainable<Response<GetMovieResponse> & Messages>
 
       /** Gets a movie by name
        * ```js
@@ -42,7 +42,7 @@ declare global {
         token: string,
         name: string,
         allowedToFail?: boolean
-      ): Chainable<GetMovieResponse>
+      ): Chainable<Response<GetMovieResponse> & Messages>
 
       /** Creates a movie
        * ```js
@@ -53,7 +53,7 @@ declare global {
         token: string,
         body: Omit<Movie, 'id'>,
         allowedToFail?: boolean
-      ): Chainable<CreateMovieResponse>
+      ): Chainable<Response<CreateMovieResponse> & Messages>
 
       /** Updates a movie by id
        * ```js
@@ -64,7 +64,7 @@ declare global {
         token: string,
         id: number,
         body: Partial<Movie>
-      ): Chainable<UpdateMovieResponse>
+      ): Chainable<Response<UpdateMovieResponse> & Messages>
 
       /** Deletes a  movie
        * ```js
@@ -75,7 +75,7 @@ declare global {
         token: string,
         id: number,
         allowedToFail?: boolean
-      ): Chainable<DeleteMovieResponse>
+      ): Chainable<Response<DeleteMovieResponse> & Messages>
 
       /**
        * Validates the response body against the provided schema.

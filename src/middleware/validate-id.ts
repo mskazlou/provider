@@ -3,11 +3,7 @@ import type { Request, Response, NextFunction } from 'express'
 /**
  * middleware for validating movie id in the request url
  */
-export function validateId(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+export function validateId(req: Request, res: Response, next: NextFunction) {
   const movieId = parseInt(req.params.id!)
 
   if (isNaN(movieId))
