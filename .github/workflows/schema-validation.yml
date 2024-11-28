@@ -7,11 +7,17 @@ concurrency:
   group: ${{ github.ref }} && ${{ github.workflow }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
   schema-validation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: 'true'
 
       - name: Read Node version from .nvmrc
         id: node_version
@@ -47,8 +53,8 @@ jobs:
           message: 'Update OpenAPI spec'
           add: 'src/api-docs/openapi.yml src/api-docs/openapi.json'
           push: 'true'
-          github_token: '${{ github.GITHUB_TOKEN }}'
-#          github_token: '${{ github.PAT_TOKEN }}'
+#          github_token: '${{ github.GITHUB_TOKEN }}'
+          github_token: '${{ github.GITHUB_PERSONAL_TOKEN }}'
 
       - name: Create empty commit to re-run checks
         if: env.changes == 'true'
