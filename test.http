@@ -5,6 +5,84 @@
 # Simulate token generation (mocked)
 GET {{baseUrl}}/auth/fake-token
 
+> {%
+  client.global.set("token", response.body.token)
+%}
+
 ###
 # @name heartbeat
 GET {{baseUrl}}
+
+###
+# @name addMovie
+POST {{baseUrl}}/movies
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Inception",
+  "year": 2010,
+  "rating": 7.5
+}
+
+> {%
+  client.global.set("movieId", response.body.data.id)
+  client.global.set("movieName", response.body.data.name)
+%}
+
+###
+# @name getAllMovies
+GET {{baseUrl}}/movies
+Authorization: {{token}}
+
+###
+# @name getMovieById
+GET {{baseUrl}}/movies/{{movieId}}
+Authorization: {{token}}
+
+###
+# @name getMovieByName
+GET {{baseUrl}}/movies?name={{movieName}}
+Authorization: {{token}}
+
+###
+# @name addDubplicateMovie
+POST {{baseUrl}}/movies/
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Inception",
+  "year": 2010,
+  "rating": 7.5
+}
+
+###
+# @name addMovieInvalidYear
+POST {{baseUrl}}/movies
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Invalid Year Movie",
+  "year": 1800,
+  "rating": 7.5
+}
+
+###
+# @name updateMovie
+PUT {{baseUrl}}/movies/{{movieId}}
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "name": "Inception updated",
+  "year": 2015,
+  "rating": 8.0
+}
+
+
+###
+# @name deleteMovie
+DELETE {{baseUrl}}/movies/{{movieId}}
+Authorization: {{token}}
