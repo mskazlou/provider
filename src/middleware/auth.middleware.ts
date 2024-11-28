@@ -22,9 +22,9 @@ export function authMiddleware(
   req: Request,
   res: Response,
   next: NextFunction
-  //
 ) {
-  const authHeader = req.header('authorization')
+  const authHeader = req.headers['authorization']
+  // const authHeader = req.header('authorization')
   if (!authHeader) {
     return res
       .status(401)
